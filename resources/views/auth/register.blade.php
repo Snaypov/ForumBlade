@@ -1,53 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('register.user') }}" method="post">
+    <form action="{{ route('register.user') }}" enctype="multipart/form-data" method="post">
         @csrf
         <div class="container">
             <div class="form-group">
-                @error('username')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                <label for="exampleInputPassword1">Username</label>
-                <input type="text" class="form-control" name="username" id="exampleInputPassword1"
-                       placeholder="Username">
+                <label for="name">Username</label>
+                <input type="text" class="form-control" name="name" placeholder="Username">
+                <div class="alert-danger"> {{ $errors->first('name') }} </div>
             </div>
             <div class="form-group">
-                @error('email')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                       aria-describedby="emailHelp"
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" name="email" aria-describedby="emailHelp"
                        placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                     else.</small>
+                <div class="alert-danger"> {{ $errors->first('email') }} </div>
             </div>
             <div class="form-group">
-                @error('nickname')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                <label for="exampleInputPassword1">Nickname</label>
+                <label for="nickname">Nickname</label>
                 <input type="text" class="form-control" name="nickname" id="exampleInputPassword1"
                        placeholder="Nickname">
+                <div class="alert-danger"> {{ $errors->first('nickname') }} </div>
             </div>
             <div class="form-group">
-                @error('photo')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                <label for="exampleInputPassword1">Photo</label>
-                <input type="file" class="form-control" name="photo" id="exampleInputPassword1"
-                       placeholder="photo">
+                <label for="photo">Photo</label>
+                <input type="file" class="form-control" name="photo" placeholder="photo">
+                <div class="alert-danger"> {{ $errors->first('photo') }} </div>
             </div>
             <div class="form-group">
-                @error('password')
-                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                @enderror
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" name="password" id="exampleInputPassword1"
-                       placeholder="Password">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Password">
+                <div class="alert-danger"> {{ $errors->first('password') }} </div>
+
             </div>
             <button style="margin-top: 5px" type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
 @endsection
+
+
+{{--@error('password')--}}
+{{--<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>--}}
+{{--@enderror--}}
+
+{{--<span class="invalid-feedback" role="alert"><strong>{{ $errors->first('password') }}</strong></span>--}}

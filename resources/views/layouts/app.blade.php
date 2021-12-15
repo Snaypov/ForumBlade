@@ -36,6 +36,9 @@
                         @guest
                             <a href="{{ route('verification') }}">Email Re-Verification</a>
                         @endguest
+                        @if(Auth::user())
+                                <a href=" {{ route('profile', Auth::user()->name) }}">Profile</a>
+                            @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->

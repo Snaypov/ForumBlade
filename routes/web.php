@@ -22,8 +22,9 @@ Auth::routes();
 
 Route::post('/loginUser', [AuthController::class, 'loginUser'])->name('login.user');
 Route::post('/regUser', [AuthController::class, 'registerUser'])->name('register.user');
-Route::post('/re-verify/{email}', [AuthController::class, 'reVerifyEmail'])->name('re-verify.user');
-Route::post('/confirm-email/{email}', [AuthController::class, 'confirmEmail']);
+Route::post('/re-verify', [AuthController::class, 'reVerifyEmail'])->name('re-verify.user');
+Route::get('/confirm-auth/{email}', [AuthController::class, 'confirmEmail']);
 Route::get('/email-verification', [AuthController::class, 'showEmailVerification'])->name('verification');
 
+Route::get('/user-profile/{name}', [AuthController::class, 'userProfile'])->name('profile');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -3,7 +3,7 @@
 
     Dear user. If you want to finish registration, please click button down below.
 
-    @component('mail::button', ['url' => "http://localhost:8000/confim-auth/$email"])
+    @component('mail::button', ['url' => "http://localhost:8000/confirm-auth/$email"])
         Confirm Email.
     @endcomponent
 
