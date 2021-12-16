@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -36,7 +37,8 @@ class AuthController extends Controller
             'photo' => 'required',
             'password' => 'required|min:6|max:255',
         ]);
-//        dd($request->file());
+
+//        Redis::connection();
         if($validator->fails()){
             return redirect()->route('register')->with(['errors' => $validator->errors()]);
         }
@@ -47,9 +49,9 @@ class AuthController extends Controller
             'photo' => $request->photo,
             'password' => Hash::make($request->password),
         ]);
-//        $user = User::find(1);
+
         $user->addMedia($request->file('photo'))->toMediaCollection();
-//        dd($media->getUrl('thumb'), $media->getPath('thumb'));
+
         event(new OnUserCreated($user->email));
 
         return view('verify-email');
@@ -84,7 +86,6 @@ class AuthController extends Controller
         $user = User::where('name', $name)->first();
         if ($user){
             $media = $user->getMedia()->where('model_id', $user->id)->first();
-//            dd($media->getPath('thumb'));
             return view('profile', compact(['media', 'user']));
         }
     }
