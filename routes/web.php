@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -26,5 +28,11 @@ Route::post('/re-verify', [AuthController::class, 'reVerifyEmail'])->name('re-ve
 Route::get('/confirm-auth/{email}', [AuthController::class, 'confirmEmail']);
 Route::get('/email-verification', [AuthController::class, 'showEmailVerification'])->name('verification');
 
-Route::get('/user-profile/{name}', [AuthController::class, 'userProfile'])->name('profile');
+Route::middleware('auth')->group(function (){
+    Route::get('/user-profile/{name}', [AuthController::class, 'userProfile'])->name('profile');
+    Route::resource('posts', PostController::class);
+    Route::resource('comment', CommentController::class);
+    Route::post('posts/{id}', [PostController::class, 'store'])->name('posts.store');
+});
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
