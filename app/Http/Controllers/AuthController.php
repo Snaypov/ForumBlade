@@ -65,12 +65,16 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
         ]);
+        if($validator->fails()){
+            return redirect()->route('verification')->with(['errors' => $validator->errors()]);
+        }
 
         if(User::where('email', $request->email)->whereNull('email_verified_at')->first()){
-            Mail::to($request->email)->send(new ConfirmAuth($request->email));
+
+            event(new OnUserCreated($request->email));
             return view('verify-email');
         }
-        return redirect()->route('verification');
+        return redirect()->route('verification')->withErrors(['email' => 'Email is already verificated.']);
     }
 
     public function confirmEmail($email){

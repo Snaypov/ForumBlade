@@ -14,6 +14,9 @@
                                 <div class="row mb-3">
                                     <span for="email">Email</span>
                                     <input type="email" name="email" placeholder="Enter your email address">
+                                    @if($errors)
+                                    <div class="alert-danger"> {{ $errors->first('email') }} </div>
+                                    @endif
                                 </div>
                                 <div class="row mb-0">
                                     <button type="submit" class="btn btn-primary">Send</button>
